@@ -5,26 +5,28 @@
 int fibonacci_recursive(int n, int count);
 int fibonacci_dynamic(int n);
 int fibonacci_optimized(int n);
-int fibonacci_matrix(int n);
-void power(int FIB[2][2], int n);
-void multiply(int FIB[2][2], int MAT[2][2]);
+float fibonacci_matrix(int n);
+void power(float FIB[2][2], int n);
+void multiply(float FIB[2][2], float MAT[2][2]);
+float fib(int n);
+float power_dynamic(float base, int power);
 
 int main(void)  {
   printf("\n\nHello World!!\n\nWe are studying the fibonacci numbers here.\n\n");
   //Note that we are using ints here so 46 is the highest you can go
   //since fib(47) = 2971215073
-  //ints can hold   2147483647 
-  int n = 45;
+  //ints can hold   2147483647
+  int n = 50;
 
   clock_t start, end;
   double cpu_time_used;
   int res;
 
   start = clock();
-  res = fibonacci_recursive(n, 0);
+  float r = fib(n);
   end = clock();
   cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-  printf("Fibonacci_recursive(%d) = %d, %f seconds\n", n, res, cpu_time_used);
+  printf("Fib(%d) = %f, %f seconds\n", n, r, cpu_time_used);
 
   start = clock();
   res = fibonacci_dynamic(n);
@@ -132,16 +134,16 @@ int fibonacci_optimized(int n)  {
 /*
 still need to learn how this works but essentially it runs in O(logn)
 */
-int fibonacci_matrix(int n)  {
+float fibonacci_matrix(int n)  {
   if (0 == n) return 0;
-  int FIB[2][2] = {{1,1},{1,0}};
+  float FIB[2][2] = {{1,1},{1,0}};
   power(FIB, n-1);
   return FIB[0][0];
 }
 
-void power(int FIB[2][2], int n)  {
+void power(float FIB[2][2], int n)  {
   if(0 == n || 1 == n) return;
-  int MAT[2][2] = {{1,1},{1,0}};
+  float MAT[2][2] = {{1,1},{1,0}};
 
   power(FIB, n/2);
   multiply(FIB, FIB);
@@ -149,14 +151,34 @@ void power(int FIB[2][2], int n)  {
   if (n%2 != 0) multiply(FIB, MAT);
 }
 
-void multiply(int FIB[2][2], int MAT[2][2])  {
-  int m00 = FIB[0][0]*MAT[0][0] + FIB[0][1]*MAT[1][0];
-  int m01 = FIB[0][0]*MAT[0][1] + FIB[0][1]*MAT[1][1];
-  int m10 = FIB[1][0]*MAT[0][0] + FIB[1][1]*MAT[1][0];
-  int m11 = FIB[1][0]*MAT[0][1] + FIB[1][1]*MAT[1][1];
+void multiply(float FIB[2][2], float MAT[2][2])  {
+  float m00 = FIB[0][0]*MAT[0][0] + FIB[0][1]*MAT[1][0];
+  float m01 = FIB[0][0]*MAT[0][1] + FIB[0][1]*MAT[1][1];
+  float m10 = FIB[1][0]*MAT[0][0] + FIB[1][1]*MAT[1][0];
+  float m11 = FIB[1][0]*MAT[0][1] + FIB[1][1]*MAT[1][1];
 
   FIB[0][0] = m00;
   FIB[0][1] = m01;
   FIB[1][0] = m10;
   FIB[1][1] = m11;
+}
+
+//12586269025
+//12586287104
+float fib(int n)  {
+  float phi = 1.61803398;
+  float psi = -0.61803398;
+
+  float numerator = power_dynamic(phi, n) - power_dynamic(psi, n);
+  float denominator = phi - psi;
+  return numerator/denominator;
+}
+
+float power_dynamic(float base, int power)  {
+  float n;
+  if(0 == power) return 1;
+  n = power_dynamic(base, power/2);
+  if(0 == power%2) return n*n;
+  if(power > 0) return base*n*n;
+  return (n*n)/base;
 }

@@ -38,6 +38,8 @@ int main(void)  {
 
 }
 
+//I wrote this guy, definitely isn't so good though
+//runs in O(n)
 float power_recursive(float base, int power)  {
   printf("we got a base of %f and a power of %d\n", base, power);
   if(0 == base) return 0;
@@ -47,6 +49,8 @@ float power_recursive(float base, int power)  {
   return base * power_recursive(base, power - 1);
 }
 
+//if you notice that n^p = n^(p/2) * n^(p/2) for even p
+//and n^p = n^(p/2) * n^(p/2) * n for odd p
 float power_dynamic(float base, int power)  {
   printf("we got a base of %f and a power of %d\n", base, power);
   float n;
