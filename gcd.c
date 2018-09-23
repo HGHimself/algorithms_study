@@ -57,7 +57,6 @@ double mod(double x, double y) {
     divisor <<= 1;
   }
 
-
   while (modulus >= y) {
     while (divisor > modulus)  {
       divisor >>= 1;

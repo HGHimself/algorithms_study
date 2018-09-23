@@ -7,6 +7,7 @@ int permutation(int n, int k);
 int choose(int n, int k);
 int factorial(int n);
 float power(float base, int power);
+int congruence_mod(int a, int b, int n);
 
 int main(void)  {
   printf("\n\nHello World\n\n");
@@ -76,4 +77,15 @@ float power(float base, int power)  {
   if(0 == power%2) return n*n;
   if(power > 0) return base*n*n;
   return (n*n)/base;
+}
+
+// a === b (mod n)
+int congruence_mod(int a, int b, int n)  {
+  int dif = 0;
+  if(a > b) dif = a - b;
+  else if(a < b) dif = b - a;
+  else return 1;
+  //n|b-a
+  if(n % dif == 0) return 1;
+  else return 0;
 }

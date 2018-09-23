@@ -1,3 +1,1 @@
 # Algorithms
-
-## Fibonacci
