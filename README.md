@@ -19,3 +19,8 @@
 ```
 a = qn + r where 0 <= r < n
 ```
+- the value q = floor(a/n) is called the *quotient*
+- the value r = a mod n is called the *remainder*
+- n|a if and only if a mod n = 0
+- we can partition the integers into equivalence classes mod n
+  * ```[a]_n = {a + kn: k is element of Z}```
