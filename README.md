@@ -16,9 +16,7 @@
 
 ### Division Theorem
 - for any integer a and n > 0, there exists unique integers q and r such that
-```
-a = qn + r where 0 <= r < n
-```
+  * ```a = qn + r where 0 <= r < n```
 - the value q = floor(a/n) is called the *quotient*
 - the value r = a mod n is called the *remainder*
 - n|a if and only if a mod n = 0
@@ -32,4 +30,34 @@ a = qn + r where 0 <= r < n
 - properties of common divisors
   * d|a and d|b implies d|(a+b) and d|(a-b)
   * d|a and d|b implies d|(ax+by) for any integer x and y
-  *
+  * a|b and b|a implies a = +-b
+- properties of greatest common divisor
+  * ```gcd(a, b) = gcd(b, a)```
+  * ```gcd(a, b) = gcd(-a, b)```
+  * ```gcd(a, b) = gcd(|b|, |a|)```
+  * ```gcd(a, 0) = |a|```
+  * ```gcd(a, ka) = |a|```
+- if a and b are any non-zero integers, then gcd(a,b) is the smallest possible element of the set {ax + by: x,y are elements of Z} of linear combinations of a and b
+
+### Relatively Prime
+- two integers a, b are relatively prime if gcd(a,b) = 1
+- if two integers are relatively prime to a prime p, then their product is also relatively prime to p
+  * this is because a and b have no relation(prime factor) of p, so their product won't magically add that factor in
+
+### Unique Factorization
+- for all primes p and all integers a and b, if p|ab, then p|a or p|b (or both)
+  * opposite of above, meaning if there is a common prime factor p in a or b, then it will still be present in a(b)
+
+## GCD
+
+### Recursive Theorem
+- gcd(a,b) = gcd(b, a mod b)
+- my attempt at a proof:
+  * a mod b = r and a = qb + r (division theorem)
+  * so a mod b = r = a - q(b)
+  * d|a and d|b implies d|(ax+by) for any integer x and y (properties of common divisors)
+  * gcd(a,b) = d => d|a and d|b
+  * so d|(ax+by) => a - q(b) = (1)a + (-q)b = a mod b
+  * since a mod b is a linear combination, its implied that d|(a mod b)
+  * therefore since d|b and d|(a mod b) gcd(a,b)|gcd(b,a mod b)
+  
