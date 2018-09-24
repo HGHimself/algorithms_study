@@ -16,8 +16,8 @@ int main(void)  {
   double cpu_time_used;
   int res;
 
-  int a = 99;
-  int b = 78;
+  int a = 123456789;
+  int b = 987654321;
 
   start = clock();
   res = euclid(a, b);
@@ -42,6 +42,7 @@ int main(void)  {
 }
 
 //O(lg(b))
+//doesnt matter if a>b or b<a because mod will flip accordingly
 int euclid(int a, int b)  {
   if(b == 0) return a;
   else return euclid(b, a % b);
