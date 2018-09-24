@@ -9,16 +9,16 @@
 - if d|a, then we say d is a *divisor* of a
 
 ### Primes
-- integer a > 1 whose only divisors are 1 and a is called *prime*
-- a number that is not prime is called *composite*
-- 1 is a *unit*
+- integer a > 1 whose only divisors are 1 and a is called **prime**
+- a number that is not prime is called **composite**
+- 1 is a **unit**
 - 0 and all negative numbers are neither prime nor composite
 
 ### Division Theorem
 - for any integer a and n > 0, there exists unique integers q and r such that
   * ```a = qn + r where 0 <= r < n```
-- the value q = floor(a/n) is called the *quotient*
-- the value r = a mod n is called the *remainder*
+- the value q = floor(a/n) is called the **quotient**
+- the value r = a mod n is called the **remainder**
 - n|a if and only if a mod n = 0
 - we can partition the integers into equivalence classes mod n
   * ```[a]_n = {a + kn: k is element of Z}```
@@ -26,7 +26,7 @@
   * ```Z_n = {[a]_n : 0 <= a <= n-1}```
 
 ### Greatest Common Divisor
-- if d|a and d|b then d is a *common divisor* of a and b
+- if d|a and d|b then d is a **common divisor** of a and b
 - properties of common divisors
   * d|a and d|b implies d|(a+b) and d|(a-b)
   * d|a and d|b implies d|(ax+by) for any integer x and y
@@ -53,19 +53,33 @@
 ### Recursive Theorem
 - gcd(a,b) = gcd(b, a mod b)
 - my attempt at a proof:
-- showing that above equation holds using *a|b and b|a implies a = +-b*
+- showing that above equation holds using **a|b and b|a implies a = +-b**
   * ```a mod b = r``` and ```a = qb + r``` (division theorem)
   * so ```a mod b = r = a - q(b)```
-  * d|a and d|b implies d|(ax+by) for any integer x and y (properties of common divisors)
+  * **d|a and d|b implies d|(ax+by)** for any integer x and y (properties of common divisors)
   * since ```gcd(a,b) = d => d|a and d|b```
   * then ```d|(ax+by) => a - q(b) = (1)a + (-q)b = a mod b```
-  * since a mod b is a linear combination, its implied that d|(a mod b)
-  * therefore since d|b and d|(a mod b) => *gcd(a,b)|gcd(b,a mod b)*
+  * since a mod b is a linear combination of a and b, its implied that **d|(a mod b)**
+  * therefore since d|b and d|(a mod b) => **gcd(a,b)|gcd(b,a mod b)**
 - for the other direction:
   * assume ```gcd(b, a mod b) = d```
   * therefore d|b and d|(a mod b)
   * since ```a = qb + (a mod b)```(division theorem)
   * a is a linear combination of b and (a mod b)
   * from the properties of common divisors, we can conclude that d|a
-  * therefore since d|a and d|b => *gcd(b, a mod b)|gcd(b,a)*
-- Since *gcd(a,b)|gcd(b,a mod b)* and *gcd(b, a mod b)|gcd(b,a)*, we can conclude that *gcd(a,b) = gcd(b, a mod b)*
+  * therefore since d|a and d|b => **gcd(b, a mod b)|gcd(b,a)**
+- Since **gcd(a,b)|gcd(b,a mod b)** and **gcd(b, a mod b)|gcd(b,a)**, we can conclude that **gcd(a,b) = gcd(b, a mod b)**
+
+### Euclid's Algorithm
+```
+EUCLID(a,b)
+  if b == 0
+    return a
+  else return EUCLID(b, a mod b)
+```
+
+- run time of above is proportional to the number of function calls it makes
+- since consecutive Fibonacci numbers are always relatively prime, this puts a boof in the calculations
+  * ```F_n+1 mod F_n = F_n-1```
+  * so EUCLID(F_n+1, F_n) would make **n-1** function calls
+- O(lg(b)) but I'm not entirely sure why yet.

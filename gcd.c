@@ -5,6 +5,8 @@
 
 double gcd(double a, double b);
 double mod(double x, double y);
+int euclid(int a, int b);
+int* extended_euclid(int a, int b, int* dxy);
 
 int main(void)  {
   printf("\n\nHello World!!\n\nWe are studying gcd here.\n\n");
@@ -12,25 +14,58 @@ int main(void)  {
 
   clock_t start, end;
   double cpu_time_used;
-  double res;
+  int res;
 
-  double a = 1764218677667;
-  double b = 208095570762977;
-  //double a = 691;
-  //double b = 10;
-  //printf("\n%f - %f = %f\n", b, a, b - a);
-  //double a = 691;
-  //double b = 10;
-
-  //printf("%f mod %f = %f", a, b, gcd(a, b));
+  int a = 99;
+  int b = 78;
 
   start = clock();
-  res = gcd(a, b);
+  res = euclid(a, b);
   end = clock();
   cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
-  printf("gcd(%f, %f) = %f, %f seconds\n\n", a, b, res, cpu_time_used);
+  printf("euclid(%d, %d) = %d, %f seconds\n\n", a, b, res, cpu_time_used);
+
+  start = clock();
+  double resd = gcd((double)a, (double)b);
+  end = clock();
+  cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+  printf("gcd(%d, %d) = %f, %f seconds\n\n", a, b, resd, cpu_time_used);
+
+  int* table = malloc(sizeof(int) * 3);
+  start = clock();
+  int* dxy = extended_euclid(a, b, table);
+  end = clock();
+  cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
+  printf("gcd(%d, %d) = (%d, %d, %d), %f seconds\n\n", a, b, dxy[0], dxy[1], dxy[2], cpu_time_used);
 
 
+}
+
+//O(lg(b))
+int euclid(int a, int b)  {
+  if(b == 0) return a;
+  else return euclid(b, a % b);
+}
+
+int* extended_euclid(int a, int b, int* dxy)  {
+  if(b == 0)  {
+    printf("found!\n");
+    dxy[0] = a;
+    dxy[1] = 1;
+    dxy[2] = 0;
+    return dxy;
+  }
+  else  {
+    printf("deeper\n");
+    int* dxy_prime = extended_euclid(b, a % b, dxy);
+    int number = ((a/b) * dxy_prime[2]);
+    int y_prime = dxy_prime[1] - number;
+    printf("a:%d, b:%d, (a/b):%d, d:%d, x:%d, y:%d\n", a, b, (a/b), dxy_prime[0], dxy_prime[1], dxy_prime[2]);
+    dxy[0] = dxy_prime[0];
+    dxy[1] = dxy_prime[2];
+    dxy[2] = y_prime;
+    return dxy;
+  }
 }
 
 double gcd(double a, double b) {
