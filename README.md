@@ -53,11 +53,19 @@
 ### Recursive Theorem
 - gcd(a,b) = gcd(b, a mod b)
 - my attempt at a proof:
-  * a mod b = r and a = qb + r (division theorem)
-  * so a mod b = r = a - q(b)
+- showing that above equation holds using *a|b and b|a implies a = +-b*
+  * ```a mod b = r``` and ```a = qb + r``` (division theorem)
+  * so ```a mod b = r = a - q(b)```
   * d|a and d|b implies d|(ax+by) for any integer x and y (properties of common divisors)
-  * gcd(a,b) = d => d|a and d|b
-  * so d|(ax+by) => a - q(b) = (1)a + (-q)b = a mod b
+  * since ```gcd(a,b) = d => d|a and d|b```
+  * then ```d|(ax+by) => a - q(b) = (1)a + (-q)b = a mod b```
   * since a mod b is a linear combination, its implied that d|(a mod b)
-  * therefore since d|b and d|(a mod b) gcd(a,b)|gcd(b,a mod b)
-  
+  * therefore since d|b and d|(a mod b) => *gcd(a,b)|gcd(b,a mod b)*
+- for the other direction:
+  * assume ```gcd(b, a mod b) = d```
+  * therefore d|b and d|(a mod b)
+  * since ```a = qb + (a mod b)```(division theorem)
+  * a is a linear combination of b and (a mod b)
+  * from the properties of common divisors, we can conclude that d|a
+  * therefore since d|a and d|b => *gcd(b, a mod b)|gcd(b,a)*
+- Since *gcd(a,b)|gcd(b,a mod b)* and *gcd(b, a mod b)|gcd(b,a)*, we can conclude that *gcd(a,b) = gcd(b, a mod b)*
