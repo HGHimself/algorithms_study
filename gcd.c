@@ -7,6 +7,8 @@ double gcd(double a, double b);
 double mod(double x, double y);
 int euclid(int a, int b);
 int* extended_euclid(int a, int b, int* dxy);
+int modular_linear_equation(int a, int b, int n, int x_n);
+int euler_phi(int n);
 
 int main(void)  {
   printf("\n\nHello World!!\n\nWe are studying gcd here.\n\n");
@@ -16,8 +18,14 @@ int main(void)  {
   double cpu_time_used;
   int res;
 
-  int a = 123456789;
-  int b = 987654321;
+  int a = 255;
+  int n = 16;
+  int b = 10;
+  int x_n = 1;
+  int x = modular_linear_equation(a, b, n, x_n);
+  printf("\n %d(%d) ~= %d (mod %d)\n", a, x, b, n);
+
+  /*
 
   start = clock();
   res = euclid(a, b);
@@ -37,7 +45,7 @@ int main(void)  {
   end = clock();
   cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
   printf("gcd(%d, %d) = (%d, %d, %d), %f seconds\n\n", a, b, dxy[0], dxy[1], dxy[2], cpu_time_used);
-
+  */
 
 }
 
@@ -101,4 +109,26 @@ double mod(double x, double y) {
   }
 
   return modulus;
+}
+
+int modular_linear_equation(int a, int b, int n, int x_n)  {
+
+  int* table = malloc(sizeof(int) * 3);
+  int* dxy = extended_euclid(a, n, table);
+
+  int d = dxy[0];
+  int x = dxy[1];
+
+  int x_naught = x * (b / d);
+
+  return x_naught + x_n * (n / d);
+}
+
+
+int euler_phi(int n)  {
+	int count = 0;
+	for(int i = 0; i < n + 1; i++) {
+		if(1 == euclid(n, i)) count++;
+	}
+	return count;
 }

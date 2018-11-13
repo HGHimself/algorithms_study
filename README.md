@@ -114,7 +114,7 @@ EXTENDED-EUCLID(a,b)
   * => n|(b-a) + (c-b)
   * => a === c (mod n)
 - a === b (mod n) if and only if (a mod n) = (b mod n)
-- proof:
+  * proof:
 ```
 a = n(q1) + r1 where 0 <= r1 < n
 b = n(q2) + r2 where 0 <= r2 < n
@@ -142,18 +142,18 @@ so q2 = q1 + k and r1 = r2.
 - if a === b (mod n) and d|n then a === b (mod d)
 - if a === b (mod n) and c === d (mod n)
   * then a+c == b+d (mod n) and ac === bd (mod n)
-- proof of above:
+  * proof:
 ```
-   n|b-a and n|d-c
-   1. n|(b-a) + (d-c) = (b+d) - (a+c)
-   => a+c === b+d (mod n)
-   2. n|b-a => b-a=nk and n|d-c => d-c=nl
-   => bd = (a+nk)(c+nl) = ac + anl + cnk + nknl
-   => bd - ac = n(al + ck + nkl)
-   => bd - ac = n(some integer)
-   => ac === bd (mod n).
+ n|b-a and n|d-c
+ 1. n|(b-a) + (d-c) = (b+d) - (a+c)
+ => a+c === b+d (mod n)
+ 2. n|b-a => b-a=nk and n|d-c => d-c=nl
+ => bd = (a+nk)(c+nl) = ac + anl + cnk + nknl
+ => bd - ac = n(al + ck + nkl)
+ => bd - ac = n(some integer)
+ => ac === bd (mod n).
 ```
--
+
 
 ## Modular Arithmetic
 
