@@ -2,11 +2,12 @@
 #include <stdio.h>
 #include <time.h>
 
+float binomial_distribution(int n, float pi);
 void binomial_theorem(int x, char a, int y, char b, int n);
 int permutation(int n, int k);
 int choose(int n, int k);
 int factorial(int n);
-float power(float base, int power);
+float power(float base, int exp);
 int congruence_mod(int a, int b, int n);
 
 int main(void)  {
@@ -14,9 +15,10 @@ int main(void)  {
 
   clock_t start, end;
   double cpu_time_used;
-
+  int n = 2;
+  float pi = 0.5;
   start = clock();
-  binomial_theorem(4, 'x', 1, '1', 4);
+  printf("The answer is %f\n", binomial_distribution(n, pi));
   end = clock();
   cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
   printf("\n\n%f seconds\n\n", cpu_time_used);
@@ -70,12 +72,12 @@ int factorial(int n)  {
   return n * factorial(n - 1);
 }
 
-float power(float base, int power)  {
+float power(float base, int exp)  {
   float n;
-  if(0 == power) return 1;
-  n = power(base, power/2);
-  if(0 == power%2) return n*n;
-  if(power > 0) return base*n*n;
+  if(0 == exp) return 1;
+  n = power(base, exp/2);
+  if(0 == exp%2) return n*n;
+  if(exp > 0) return base*n*n;
   return (n*n)/base;
 }
 
@@ -88,4 +90,16 @@ int congruence_mod(int a, int b, int n)  {
   //n|b-a
   if(n % dif == 0) return 1;
   else return 0;
+}
+
+float binomial_distribution(int n, float pi)  {
+  int i = 0;
+  float sum = 0;
+
+  for(i = 0; i <= n; i++)  {
+    sum = choose(n, i) * power(pi, i) * power(1 - pi, n - i);
+    printf("Sum is %f\n", sum);
+  }
+
+  return sum;
 }
