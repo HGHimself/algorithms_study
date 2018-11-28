@@ -96,23 +96,19 @@ double gcd(double a, double b) {
 
 double mod(double x, double y) {
   int64_t modulus = x, divisor = y;
-
   while (divisor <= modulus && divisor <= DBL_MAX/2)  {
     divisor <<= 1;
   }
-
   while (modulus >= y) {
     while (divisor > modulus)  {
       divisor >>= 1;
     }
     modulus -= divisor;
   }
-
   return modulus;
 }
 
 int modular_linear_equation(int a, int b, int n, int x_n)  {
-
   int* table = malloc(sizeof(int) * 3);
   int* dxy = extended_euclid(a, n, table);
 
@@ -120,7 +116,7 @@ int modular_linear_equation(int a, int b, int n, int x_n)  {
   int x = dxy[1];
 
   int x_naught = x * (b / d);
-
+  free(table);
   return x_naught + x_n * (n / d);
 }
 
